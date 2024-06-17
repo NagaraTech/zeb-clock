@@ -34,9 +34,7 @@ impl MigrationTrait for Migration {
                     .to_owned(),
             ).await;
 
-        if let Err(err) = result {
-            return Err(err);
-        }    
+        result?;    
         
         // create index
         let msgid_index = Index::create()
@@ -46,9 +44,7 @@ impl MigrationTrait for Migration {
             .col(ClockInfos::MessageId)
             .to_owned();
         let result = manager.create_index(msgid_index).await; 
-        if let Err(err) = result {
-            return Err(err);
-        }
+        result?;
 
         let nodeid_index = Index::create()
             .if_not_exists()

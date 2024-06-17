@@ -61,7 +61,7 @@ impl ServerState {
             let msg_id = hex::encode(item.id.clone());
             if !self.cache_items.contains_key(&msg_id)  {
                 if self.message_ids.len() > self.cache_maximum.try_into().unwrap() {
-                    let old_id = self.message_ids.pop_front().unwrap_or(String::new());
+                    let old_id = self.message_ids.pop_front().unwrap_or_default();
                     self.cache_items.remove(&old_id);
                 }
                 self.message_ids.push_back(msg_id.clone());

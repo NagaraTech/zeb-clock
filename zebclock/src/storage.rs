@@ -116,7 +116,7 @@ impl Storage {
             }
             Ok(Some(clock)) => {
                 let clock_ret: ClockInfo = clock.into();
-                return Ok(clock_ret);
+                Ok(clock_ret)
             }
         }
     }
@@ -132,13 +132,13 @@ impl Storage {
                 Err(err)
             }
             Ok(None) => {
-                let err = DbErr::RecordNotFound(format!("empty clockinfo table"));
+                let err = DbErr::RecordNotFound("empty clockinfo table".to_string());
                 info!("RecordNotFound: empty clockinfo table");
                 Err(err)
             }
             Ok(Some(clock)) => {
                 let clock_ret: ClockInfo = clock.into();
-                return Ok(clock_ret);
+                Ok(clock_ret)
             }
         }
     }
@@ -157,7 +157,7 @@ impl Storage {
             }
             Ok(Some(zmessage)) => {
                 let msg = self.model_to_zmessage(zmessage);
-                return Ok(msg);
+                Ok(msg)
             }
         }
     }
@@ -175,7 +175,7 @@ impl Storage {
             }
             Ok(clocks) => {
                 let clock_rets = clocks.iter().map(|clock| (clock.clone().into())).collect();
-                return Ok(clock_rets);
+                Ok(clock_rets)
             }
         }
     }
@@ -193,7 +193,7 @@ impl Storage {
             }
             Ok(logs) => {
                 let mergelog_rets = logs.iter().map(|log| (log.clone().into())).collect();
-                return Ok(mergelog_rets);
+                Ok(mergelog_rets)
             }
         }
     }
@@ -211,7 +211,7 @@ impl Storage {
             }
             Ok(zmessages) => {
                 let zmessage_rets = zmessages.iter().map(|msg| self.model_to_zmessage(msg.clone())).collect();
-                return Ok(zmessage_rets);
+                Ok(zmessage_rets)
             }
         }
     }
@@ -227,7 +227,7 @@ impl Storage {
                 Err(err)
             }
             Ok(counts) => {
-                return Ok(counts);
+                Ok(counts)
             }
         }
     }
@@ -243,7 +243,7 @@ impl Storage {
                 Err(err)
             }
             Ok(counts) => {
-                return Ok(counts);
+                Ok(counts)
             }
         }
     }
@@ -259,7 +259,7 @@ impl Storage {
                 Err(err)
             }
             Ok(counts) => {
-                return Ok(counts);
+                Ok(counts)
             }
         }
     }
@@ -269,7 +269,8 @@ impl Storage {
         let pub_key_bytes = hex::decode(zmessage.public_key.unwrap()).unwrap_or_else(|_| Vec::new());
         let from_bytes = hex::decode(zmessage.from).unwrap_or_else(|_| Vec::new());
         let to_bytes = hex::decode(zmessage.to).unwrap_or_else(|_| Vec::new());
-        let msg = ProtoZMessage {
+        
+        ProtoZMessage {
             id: msg_id,
             version: zmessage.version.unwrap() as u32,
             r#type: zmessage.r#type,
@@ -278,8 +279,7 @@ impl Storage {
             signature: zmessage.signature.unwrap(),
             from: from_bytes,
             to: to_bytes,
-        };
-        msg
+        }
     }
 
 }

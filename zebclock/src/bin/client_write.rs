@@ -160,13 +160,13 @@ fn make_clock_info() -> ClockInfo {
     let count = 0;
     let create_at = tools::helper::get_time_ms();
 
-    let clock_info = ClockInfo {
+    
+    ClockInfo {
         clock,
         node_id: id,
         clock_hash: Vec::new(),
         message_id,
         count,
         create_at: create_at.try_into().unwrap(),
-    };
-    clock_info
+    }
 }

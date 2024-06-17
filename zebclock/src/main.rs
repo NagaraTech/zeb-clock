@@ -68,7 +68,7 @@ async fn init_db(postgres_conn_str: String) -> bool {
     return if let Ok(url) = url::Url::parse(&postgres_conn_str) {
         let db_name = url.path().trim_start_matches('/');
         let base_url = url.as_str().trim_end_matches(db_name);
-        let is_db_name_empty = db_name == "";
+        let is_db_name_empty = db_name.is_empty();
         info!("Base URL: {}", base_url);
         info!("Database Name: {}", db_name);
         if is_db_name_empty {

@@ -34,9 +34,7 @@ impl MigrationTrait for Migration {
             )
             .await;
 
-        if let Err(err) = result {
-            return Err(err);
-        }
+        result?;
 
         // create index
         let msgid_index = Index::create()

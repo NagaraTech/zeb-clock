@@ -36,9 +36,9 @@ mod test {
     #[test]
     fn test_validate_nodeid() {
         let id = "9c8c905be05044ebeea814781ce9a0580c8fd26228e4605c7e6424c62161f70d";
-        assert_eq!(true, validate_nodeid(id));
+        assert!(validate_nodeid(id));
 
         let id = "9c8c905be05044ebeea8";
-        assert_eq!(false, validate_nodeid(id));
+        assert!(!validate_nodeid(id));
     }
 }

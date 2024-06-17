@@ -27,8 +27,8 @@ impl PartialOrd for Clock {
             }
         }
 
-        for (id, _) in &other.values {
-            if self.values.get(id).is_none() {
+        for id in other.values.keys() {
+            if !self.values.contains_key(id) {
                 less = true;
             }
         }
@@ -42,6 +42,12 @@ impl PartialOrd for Clock {
         } else {
             Some(cmp::Ordering::Equal)
         }
+    }
+}
+
+impl Default for Clock {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

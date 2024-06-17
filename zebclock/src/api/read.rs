@@ -22,7 +22,7 @@ pub async fn handle_cli_read_msg(arc_zchronod: ZchronodArc, inner_msg: Innermsg,
             match ret_gateway {
                 Err(err) => {
                     error!("Decode z_gateway message error, err={:?}", err);
-                    let response = make_query_response(false, format!("Decode ZGateway error: {:?}", err), &vec![], String::new());
+                    let response = make_query_response(false, format!("Decode ZGateway error: {:?}", err), &[], String::new());
                     respond_cli_query(arc_zchronod, inner_msg, &response.encode_to_vec(), src).await;
                 },
                 Ok(m) => {
@@ -46,7 +46,7 @@ async fn query_by_msgid(arc_zchronod: ZchronodArc, inner_msg: Innermsg, m: ZGate
     match params {
         Err(err) => {
             error!("QueryByMsgid params format error, err={:?}", err);
-            let response = make_query_response(false, format!("Params format error: {:?}", err), &vec![], m.request_id);
+            let response = make_query_response(false, format!("Params format error: {:?}", err), &[], m.request_id);
             respond_cli_query(arc_zchronod, inner_msg, &response.encode_to_vec(), src).await;
         }
         Ok(query) => {
@@ -91,7 +91,7 @@ pub async fn query_by_table_keyid(arc_zchronod: ZchronodArc, inner_msg: Innermsg
     match params {
         Err(err) => {
             error!("QueryByTableKeyid params format error, err={:?}", err);
-            let response = make_query_response(false, format!("Params format error: {:?}", err), &vec![], m.request_id);
+            let response = make_query_response(false, format!("Params format error: {:?}", err), &[], m.request_id);
             respond_cli_query(arc_zchronod, inner_msg, &response.encode_to_vec(), src).await;
         }
         Ok(query) => {

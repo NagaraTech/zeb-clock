@@ -46,7 +46,7 @@ pub async fn handle_srv_event_trigger(arc_zchronod: ZchronodArc, z_clock: ZClock
     }
     if merged {
         let state_clock_info = &arc_zchronod.state.read().await.clock_info.clone();
-        arc_zchronod.storage.sinker_clock(state_clock_info.message_id.clone(), vec![], &state_clock_info).await;
+        arc_zchronod.storage.sinker_clock(state_clock_info.message_id.clone(), vec![], state_clock_info).await;
         arc_zchronod.storage.sinker_merge_log(&input_clock_info, state_clock_info).await;
         arc_zchronod.storage.sinker_zmessage(p2p_msg.clone()).await;
     }
@@ -58,11 +58,11 @@ async fn make_event_trigger_zclock(arc_zchronod: ZchronodArc, inner_p2p_msg: &ZM
         clock_info: proto_clock,
         message: Some(inner_p2p_msg.clone())
     };
-    let z_clock = ZClock {
+    
+    ZClock {
         r#type: ClockType::EventTrigger.into(),
         data: event.encode_to_vec(),
-    };
-    z_clock
+    }
 }
 
 // fn handle_event_trigger(&mut self, msg: EventTrigger) -> Option<ServerMessage> {

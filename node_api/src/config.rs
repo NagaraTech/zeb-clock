@@ -57,7 +57,7 @@ impl ZchronodConfig {
         let p: &Path = path.as_ref();
         let config_yaml = std::fs::read_to_string(p).map_err(|err| match err {
             e @ std::io::Error { .. } if e.kind() == std::io::ErrorKind::NotFound => {
-                ZchronodConfigError::ConfigMissing(path.into())
+                ZchronodConfigError::ConfigMissing(path)
             }
             _ => err.into(),
         })?;
@@ -67,7 +67,7 @@ impl ZchronodConfig {
     }
 
     pub fn validate_config(config: &ZchronodConfig) -> ZchronodConfigResult<ZchronodConfig> {
-        if !validate_nodeid(&config.node.node_id.clone().unwrap_or(String::new())) {
+        if !validate_nodeid(&config.node.node_id.clone().unwrap_or_default()) {
             return Err(ZchronodConfigError::IllegalNodeId);
         }
         

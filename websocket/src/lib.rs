@@ -1,3 +1,4 @@
+#[cfg(test)]
 mod test;
 
 use std::io::Error;
@@ -157,7 +158,7 @@ impl WebsocketSender {
         let (s, id) = WireMessage::request(s)?;
 
         /// Drop helper to remove our response callback if we timeout.
-        struct D(Callback_Map, u64);
+        struct D(CallbackMap, u64);
 
         impl Drop for D {
             fn drop(&mut self) {
@@ -201,6 +202,7 @@ impl WebsocketSender {
 
 }
 
+#[allow(dead_code)]
 pub struct WebsocketReceiver(
     WsCoreSync,
     std::net::SocketAddr,
@@ -316,9 +318,10 @@ type WsSendSync = Arc<tokio::sync::Mutex<futures::stream::SplitSink<tokio_tungst
 type WsRecvSync = Arc<tokio::sync::Mutex<futures::stream::SplitStream<tokio_tungstenite::WebSocketStream<tokio::net::TcpStream>>>>;
 
 #[derive(Clone)]
-struct Callback_Map(Arc<std::sync::Mutex<std::collections::HashMap<u64, tokio::sync::oneshot::Sender<std::io::Result<Vec<u8>>>>>>);
+#[allow(clippy::type_complexity)]
+struct CallbackMap(Arc<std::sync::Mutex<std::collections::HashMap<u64, tokio::sync::oneshot::Sender<std::io::Result<Vec<u8>>>>>>);
 
-impl Callback_Map {
+impl CallbackMap {
     pub fn close(&self) {
         if let Ok(mut lock) = self.0.lock() {
             for (_, s) in lock.drain() {
@@ -377,7 +380,7 @@ impl WsCoreSync {
 struct WsCore {
     pub send: WsSendSync,
     pub recv: WsRecvSync,
-    pub callback: Callback_Map,
+    pub callback: CallbackMap,
     pub timeout: std::time::Duration,
 }
 
@@ -392,7 +395,7 @@ fn split(
     let core = WsCore {
         send: Arc::new(tokio::sync::Mutex::new(sink)),
         recv: Arc::new(tokio::sync::Mutex::new(stream)),
-        callback: Callback_Map(Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()))),
+        callback: CallbackMap(Arc::new(std::sync::Mutex::new(std::collections::HashMap::new()))),
         timeout,
     };
 

@@ -155,7 +155,7 @@ fn query_by_key_id(gw_type: GatewayType) -> Vec<u8> {
 fn query_status() -> Vec<u8> {
     let gateway = ZGateway {
         request_id: "query_status_for_test".into(),
-        r#type: 0.into(),
+        r#type: 0,
         method: QueryMethod::QueryStatus.into(),
         data: vec![],
     };

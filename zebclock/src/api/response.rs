@@ -13,14 +13,14 @@ use std::net::SocketAddr;
 use tracing::*;
 
 pub fn make_query_response(success: bool, reason: String, data: &[u8], request_id: String) -> QueryResponse {
-    let response = QueryResponse {
+    
+
+    QueryResponse {
         request_id,
         success,
         reason,
         data: data.to_vec(),
-    };
-
-    response
+    }
 }
 
 pub fn clockinfo_to_proto() -> impl FnMut(ClockInfo) -> ProtoClockInfo {

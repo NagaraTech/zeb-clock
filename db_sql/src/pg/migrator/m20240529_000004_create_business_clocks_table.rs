@@ -35,9 +35,7 @@ impl MigrationTrait for Migration {
                     .to_owned(),
             ).await;
 
-        if let Err(err) = result {
-            return Err(err);
-        }    
+        result?;    
         
         // create index
         let msgid_index = Index::create()
@@ -47,9 +45,7 @@ impl MigrationTrait for Migration {
             .col(BussinessClocks::MessageId)
             .to_owned();
         let result = manager.create_index(msgid_index).await; 
-        if let Err(err) = result {
-            return Err(err);
-        }
+        result?;
 
         let category_index = Index::create()
             .if_not_exists()
@@ -58,9 +54,7 @@ impl MigrationTrait for Migration {
             .col(BussinessClocks::Category)
             .to_owned();
         let result = manager.create_index(category_index).await; 
-        if let Err(err) = result {
-            return Err(err);
-        }
+        result?;
 
         let tag_index = Index::create()
             .if_not_exists()
@@ -69,9 +63,7 @@ impl MigrationTrait for Migration {
             .col(BussinessClocks::Tag)
             .to_owned();
         let result = manager.create_index(tag_index).await; 
-        if let Err(err) = result {
-            return Err(err);
-        }
+        result?;
 
         let address_index = Index::create()
             .if_not_exists()

@@ -25,7 +25,7 @@ impl ZchronodFactory {
     pub async fn create_zchronod(config: ZchronodConfig) -> ZchronodArc {
         let cfg = Arc::new(config.clone());
         let address = config.net.inner_p2p.clone();
-        let node_id = config.node.node_id.clone().unwrap_or(String::new());
+        let node_id = config.node.node_id.clone().unwrap_or_default();
         let socket = UdpSocket::bind(address).await.unwrap();
         let state = RwLock::new(ServerState::new(node_id, cfg.node.cache_msg_maximum));
         let storage = storage::Storage::new(cfg.clone()).await;

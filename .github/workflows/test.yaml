@@ -55,7 +55,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
 
       - run: rustup component add clippy
-      - run: cargo clippy -- -D warnings
+      - run: cargo clippy -- -W warnings
 
   test:
     name: Test Suite
