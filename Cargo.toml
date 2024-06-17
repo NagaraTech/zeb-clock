@@ -6,6 +6,8 @@ members = [
     "zebclock",
 ]
 
+exclude = []
+
 resolver = "2"
 
 [workspace.lints.clippy]

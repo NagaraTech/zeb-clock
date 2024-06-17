@@ -20,6 +20,10 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+
+      - name: Install protoc
+        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+
       - run: cargo check
 
   fmt:
@@ -46,6 +50,10 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+
+      - name: Install protoc
+        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+
       - run: rustup component add clippy
       - run: cargo clippy -- -D warnings
 
@@ -59,4 +67,8 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+
+      - name: Install protoc
+        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+
       - run: cargo test

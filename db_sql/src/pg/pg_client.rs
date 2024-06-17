@@ -54,6 +54,7 @@ mod tests {
     const DB_NAME: &str = "vlc_inner_db";
 
     #[tokio::test]
+    #[ignore]
     async fn set_up_db() {   // could add the function to server cli command
         match block_on(setup_db(DATABASE_PG_URL, DB_NAME)) {
             Err(err) => {
@@ -64,6 +65,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_run() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");
@@ -111,6 +113,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn insert_zmessage() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");
@@ -138,6 +141,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_get_clocks_by_msgid() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");
@@ -149,6 +153,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn test_get_clocks_from_start_id() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");
@@ -166,6 +171,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn get_table_counts() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");
@@ -179,6 +185,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore]
     async fn get_last_clock() {
         let url = format!("{}/{}", DATABASE_PG_URL, DB_NAME);
         let db = Database::connect(&url).await.expect("failed to connect to database");

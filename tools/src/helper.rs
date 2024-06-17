@@ -3,11 +3,10 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use sha2::{Sha256, Digest};
 
 pub fn get_time_ms() -> u128 {
-    let time = SystemTime::now()
+    SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap()
-        .as_millis();
-    time
+        .as_millis()
 }
 
 pub fn sha256_str_to_hex(fclock_str: String) -> String {

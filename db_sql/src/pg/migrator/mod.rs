@@ -8,7 +8,7 @@ mod m20240529_000004_create_business_clocks_table;
 /// Use the sea-orm-cli to generate data entity, 
 /// command like as follow:
 /// 
-/// ```rust
+/// ```sh
 /// sea-orm-cli generate entity \
 /// -u mysql://root:password@localhost:3306/bakeries_db \
 /// -o src/entities
