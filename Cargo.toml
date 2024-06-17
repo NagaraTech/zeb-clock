@@ -1,0 +1,40 @@
+[workspace]
+members = [
+    ".",
+    "vlc",
+    "protos",
+    "zebclock",
+]
+
+resolver = "2"
+
+[workspace.lints.clippy]
+nursery = "allow"
+cargo = "allow"
+pedantic = "allow"
+restriction = "allow"
+style = "deny"
+complexity = "deny"
+perf = "deny"
+correctness = "deny"
+dbg_macro = "deny"
+
+[profile.release]
+# debug = true
+strip = true
+incremental = true
+
+[workspace.dependencies]
+anyhow = { version = "1.0.75", features = ["backtrace"] }
+async-trait = "0.1.74"
+axum = "0.7.1"
+borsh = { version = "1.2.0", features = ["derive"] }
+ethnum = "1.5.0"
+rand = "0.8.5"
+secp256k1 = { version = "0.28.0", features = [
+    "hashes",
+    "rand",
+    "global-context",
+] }
+tokio = { version = "1.33.0", features = ["full"] }
+tokio-util = "0.7.10"
