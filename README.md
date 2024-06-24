@@ -16,7 +16,7 @@ The zebclock depends on postgre db for data persistence, so please install postg
 
 The zebclock play a role of inner logic and state layer in vlc overview. One zebclock process matches a zeb p2p node, and them use inner net socket for communication.
 
-For now, zebclock and zeb use the same node identity for two processes. So first generate a key pair identity, then address it to `node_id` in [config-tempelete.yaml](../docs/config-tempelete.yaml) of zebclock.
+For now, zebclock and zeb use the same node identity for two processes. So first generate a key pair identity, then address it to `node_id` in [config-template.yaml](./docs/config-template.yaml) of zebclock.
 
 ### Net messaging
 
@@ -27,7 +27,7 @@ The zebclock and zeb using protobuf proto3 as serialization compression algorith
 ### Build from source
 
 ```bash
-git clone https://github.com/NagaraTech/zeb-clock.git
+git clone https://github.com/hetu-project/zeb-clock.git
 
 cd zeb-clock
 
@@ -44,7 +44,7 @@ cargo build
 ./target/debug/zebclock --init_pg postgres://postgres:hetu@0.0.0.0:5432/vlc_inner_db
 
 # 3.setup the node & please update the config file to your dev environment
-./target/debug/zebclock --config ./docs/config-tempelete.yaml
+./target/debug/zebclock --config ./docs/config-template.yaml
 ```
 
 ## How to test

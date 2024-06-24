@@ -23,8 +23,8 @@ WORKDIR /app
 
 COPY --from=builder /app/target/debug/zebclock ./zebclock
 
-COPY ./docs/config-tempelete.yaml ./config-tempelete.yaml
+COPY ./docs/config-template.yaml ./config-template.yaml
 
 EXPOSE 8080
 
-CMD ["./zebclock", "--config", "./config-tempelete.yaml"]
+CMD ["./zebclock", "--config", "./config-template.yaml"]
