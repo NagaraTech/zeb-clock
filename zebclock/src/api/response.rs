@@ -13,8 +13,6 @@ use std::net::SocketAddr;
 use tracing::*;
 
 pub fn make_query_response(success: bool, reason: String, data: &[u8], request_id: String) -> QueryResponse {
-    
-
     QueryResponse {
         request_id,
         success,

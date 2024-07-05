@@ -13,7 +13,7 @@ use structopt::StructOpt;
 use node_api::error::ZchronodConfigError;
 use tracing::*;
 use node_api::config::ZchronodConfig;
-use tracing_subscriber::FmtSubscriber;
+use tracing_subscriber::EnvFilter;
 use crate::zchronod::ZchronodArc;
 use crate::zchronod::Zchronod;
 
@@ -31,9 +31,11 @@ fn main() {
 }
 
 async fn async_main() {
-    let fmt_subscriber = FmtSubscriber::new();
-    tracing::subscriber::set_global_default(fmt_subscriber)
-        .expect("set default tracing subscriber fail");
+    // set default log level: INFO
+    let rust_log = std::env::var("RUST_LOG").unwrap_or_else(|_| "info".to_string());
+    tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::new(rust_log))
+        .init();
 
     info!("start zchronod server");
     let mut help_info = true;
