@@ -133,6 +133,8 @@ impl Clock {
 
 #[cfg(test)]
 mod tests {
+    use std::time::{Duration, Instant};
+
     use super::*;
 
     #[test]
@@ -178,5 +180,34 @@ mod tests {
         assert_eq!(c1.partial_cmp(&c2), Some(cmp::Ordering::Greater));
         assert_eq!(c3.partial_cmp(&c1), Some(cmp::Ordering::Less));
         assert_eq!(c1.partial_cmp(&c3), Some(cmp::Ordering::Greater));
+    }
+
+    #[test]
+    #[ignore]
+    fn stress_update() -> std::fmt::Result<> {
+        for size in (0..=12).step_by(2).map(|n| 1 << n) {
+            let num_merged = 0;
+            let mut c1 = Clock::new();
+            c1.values =(0..size).map(|i| (i as _, 0)).collect();
+            
+            let mut count = 0;
+            let start_time = Instant::now();
+            let mut current_clock = c1.clone();
+            loop {
+                if start_time.elapsed() >= Duration::from_secs(10) {
+                    break;
+                }
+                
+                current_clock.merge(&vec![&c1; num_merged]);
+                current_clock.inc(0);
+                count += 1;
+            }
+
+            println!(
+                "key {size},merged {num_merged}, tps {}",
+                count as f32 / 10.
+            );
+        }
+        Ok(())
     }
 }
